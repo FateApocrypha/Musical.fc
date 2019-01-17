@@ -12,8 +12,10 @@ let mainWindow
 function createWindow() {
   //创建浏览器窗口,宽高自定义具体大小你开心就好
   mainWindow = new BrowserWindow({
-    width: 800,
-    height: 600
+    width: 980,
+    height: 850,
+    minWidth: 950,
+    minHeight: 700,
   })
 
   /* 
@@ -25,8 +27,16 @@ function createWindow() {
     }))
   */
   // 加载应用----适用于 react 项目
-  mainWindow.loadURL('http://localhost:3000/');
-
+  // 开发环境使用 http 协议 生产环境使用 file 协议
+  if (process.env.NODE_ENV === 'development') {
+    mainWindow.loadURL('http://localhost:3000/');
+  } else {
+    mainWindow.loadURL(url.format({
+      pathname: path.join(__dirname, 'index.html'),
+      protocol: 'file:',
+      slashes: true
+    }));
+  }
   // 打开开发者工具，默认不打开
   // mainWindow.webContents.openDevTools()
 

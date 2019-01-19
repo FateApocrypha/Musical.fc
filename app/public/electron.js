@@ -13,19 +13,13 @@ function createWindow() {
   //创建浏览器窗口,宽高自定义具体大小你开心就好
   mainWindow = new BrowserWindow({
     width: 980,
-    height: 850,
-    minWidth: 950,
+    height: 800,
+    minWidth: 900,
     minHeight: 700,
+    titleBarStyle: 'hiddenInset',
+    backgroundColor: '#021524'
   })
 
-  /* 
-   * 加载应用-----  electron-quick-start中默认的加载入口
-    mainWindow.loadURL(url.format({
-      pathname: path.join(__dirname, 'index.html'),
-      protocol: 'file:',
-      slashes: true
-    }))
-  */
   // 加载应用----适用于 react 项目
   // 开发环境使用 http 协议 生产环境使用 file 协议
   if (process.env.NODE_ENV === 'development') {
@@ -38,7 +32,7 @@ function createWindow() {
     }));
   }
   // 打开开发者工具，默认不打开
-  // mainWindow.webContents.openDevTools()
+  mainWindow.webContents.openDevTools()
 
   // 关闭window时触发下列事件.
   mainWindow.on('closed', function () {

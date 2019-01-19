@@ -1,0 +1,48 @@
+@import '../../commons/scss/variable.scss';
+
+header {
+  position: relative;
+  width: 100%;
+  height: $header-height;
+
+  .icon {
+    position: absolute;
+    top: 50%;
+    left: 30px;
+    color: $color-text;
+    font-weight: bold;
+    font-size: $font-size-xxxl;
+    cursor: pointer;
+    transition: all 0.5s;
+    transform: translateY(-50%);
+
+    &:hover {
+      color: $color-theme;
+    }
+  }
+
+  nav {
+    position: absolute;
+    top: 50%;
+    right: 30px;
+    margin: 0;
+    transform: translateY(-50%);
+
+    a {
+      display: inline-block;
+      margin: 0 5px;
+      color: $color-text-gray;
+      text-decoration: none;
+      font-size: $font-size-x;
+      transition: all 0.3s;
+
+      &:hover {
+        color: $color-theme;
+      }
+    }
+
+    .active {
+      color: $color-theme;
+    }
+  }
+}

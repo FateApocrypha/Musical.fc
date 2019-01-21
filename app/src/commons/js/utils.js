@@ -57,7 +57,20 @@ export function formatPlayCount(count) {
     return Math.floor(count / 10000) + '万';
   }
 }
-
+export function format (interval = 0) {
+  if (isNaN(interval)) {
+    interval = 0;
+  }
+  let minute = Math.floor(interval / 60);
+  if (minute < 10) {
+    minute = '0' + minute;
+  }
+  let second = Math.floor(interval % 60);
+  if (second < 10) {
+    second = '0' + second;
+  }
+  return minute + ':' + second;
+}
 export function imageRatio(width = 0, height = width) {
   return `?param=${window.devicePixelRatio * width}x${window.devicePixelRatio * height}`;
 }

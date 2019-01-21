@@ -4,6 +4,7 @@ import React, {
 import { withRouter } from 'react-router-dom';
 import { If, Then, Else } from 'react-if';
 import { PLAY_MODE_TYPES } from '../../commons/js/config';
+import { findIndex, imageRatio, format } from '../../commons/js/utils.js';
 import './index.scss';
 import ProgressBar from '../ProgressBar';
 class Player extends Component {
@@ -110,6 +111,22 @@ class Player extends Component {
             <p className="music-name" onClick={this.handleShowMusicDetial}>
               {/* {currentMusic ? currentMusic.musicName : ''} */}
               {'以父之名'}
+              <If condition={true}>
+                <Then>
+                  <span className="like-music" 
+                    // onClick={() => this.props.handleAddToLikeList(currentMusic)}
+                    >
+                    <i className="iconfont icon-will-love" title="添加到我喜欢的音乐"></i>
+                  </span>
+                </Then>
+                <Else>
+                  <span className="dislike-music" 
+                    // onClick={() => this.props.handleAddToLikeList(currentMusic)}
+                    >
+                    <i className="iconfont icon-love" title="不喜欢这首歌啦~"></i>
+                  </span>
+                </Else>
+              </If>
             </p>
             <p className="singer-name">
               {/* {currentMusic ? <RenderSingers singers={currentMusic.singers} /> : ''} */}
@@ -121,12 +138,23 @@ class Player extends Component {
           {
             this.renderPlayerControl()
           }
-          <div className="progress-bar-container">
-            <ProgressBar
-              percent={0.5}
-              percentChange={this.percentChange}
-              percentChangeEnd={this.percentChangeEnd}
-            />
+          <div className="progress-bar-group">
+            <div className="play-time">
+            <span className="current-time">
+                  {/* {format(this.props.currentTime)} */}
+                  {'00:20'}
+                </span>
+              </div>
+            <div className="progress-bar-container">
+              <ProgressBar
+                percent={0.5}
+                percentChange={this.percentChange}
+                percentChangeEnd={this.percentChangeEnd}
+              />
+            </div>
+            {/* <div className="play-time"> */}
+            <span className="duration">{"03:20"}</span>
+              {/* </div> */}
           </div>
         </div>
         <div className="player-right-container">

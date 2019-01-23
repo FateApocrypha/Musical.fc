@@ -127,6 +127,10 @@
     flex-direction: row;
     margin-top: 10px;
   }
+  .play-time {
+    margin: 0 10px;
+    font-size: 12px;
+  }
   .progress-bar-container {
     width: 100%;
   }
@@ -170,11 +174,11 @@
     }
   }
 
-  .play-time-container {
-    position: absolute;
-    top: 45px;
-    left: 20px;
-  }
+  // .play-time-container {
+  //   position: absolute;
+  //   top: 45px;
+  //   left: 20px;
+  // }
 
   .audio-volume {
     position: relative;

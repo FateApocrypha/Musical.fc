@@ -4,6 +4,7 @@ import React, {
 import {
   withRouter
 } from 'react-router-dom';
+import Loading from '../../components/Loading';
 import { getRecommendList } from '../../api/index';
 import {
   imageRatio,
@@ -16,7 +17,7 @@ class Recommend extends Component {
     this.state = {
       recommendList: [],
       gotRecomment: false,
-      showLoading: false
+      showLoading: true
     }
   }
 
@@ -43,8 +44,19 @@ class Recommend extends Component {
     })
     .catch(err => {})
   }
+  // 列表滚动
   handleScroll = () => {
-
+    const recommendList = this.refs.recommendList
+    const scrollAtBottom = recommendList.scrollHeight - (recommendList.scrollTop + recommendList.clientHeight) === 0
+    if(scrollAtBottom && !this.state.gotRecommend) {
+      this.setState(() => ({
+        gotRecommend: true,
+        showLoding: false
+      }), ()=> {
+        const index = this.state.recommendList.length - 1
+        this.handleGetRecommendList(this.state.recommendList[index].updateTime)
+      })
+    }
   }
   // 渲染推荐列表
   renderRecommendList() {
@@ -89,6 +101,7 @@ class Recommend extends Component {
         ref="recommendList"
         >
           {this.renderRecommendList()}
+          {this.state.showLoading && <Loading />}
         </ul>
       </div>
     );

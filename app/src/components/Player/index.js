@@ -140,11 +140,11 @@ class Player extends Component {
           }
           <div className="progress-bar-group">
             <div className="play-time">
-            <span className="current-time">
-                  {/* {format(this.props.currentTime)} */}
-                  {'00:20'}
-                </span>
-              </div>
+              <span className="current-time">
+                {/* {format(this.props.currentTime)} */}
+                {'00:20'}
+              </span>
+            </div>
             <div className="progress-bar-container">
               <ProgressBar
                 percent={0.5}
@@ -152,9 +152,9 @@ class Player extends Component {
                 percentChangeEnd={this.percentChangeEnd}
               />
             </div>
-            {/* <div className="play-time"> */}
-            <span className="duration">{"03:20"}</span>
-              {/* </div> */}
+            <div className="play-time">
+              <span className="duration">{"03:20"}</span>
+            </div>
           </div>
         </div>
         <div className="player-right-container">

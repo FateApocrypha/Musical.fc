@@ -11,3 +11,14 @@ export function getRecommendList (updateTime = null){
   }
   return axios.get(url);
 }
+// 获取单首音乐详情
+export function getMusicDetail (id) {
+  const url = HOST + `/song/detail?ids=${id}`;
+  return axios.get(url);
+}
+
+// 获取歌单详情
+export function getMusicListDetail (id) {
+  const url = HOST + `/playlist/detail?id=${id}`;
+  return axios.get(url);
+}

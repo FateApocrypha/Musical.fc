@@ -2,6 +2,8 @@ import * as types from './actionTypes'
 
 // 给一个初始的 state 树
 const defaultState = {
+  // 播放状态
+  playing: false,
   // 当前展示的歌曲列表
   musicList: null,
 
@@ -41,6 +43,12 @@ export default (state = defaultState, action) => {
       newState.showMusicList = true
     }
     return newState
+  }else if(action.type === types.CHANGE_PLAYING_STATUS){
+    const newState = deepCopy(state)
+    newState.playing = action.status
+    return newState
+  }else if(action.type === types.CHANGE_CURRENT_MUSIC){
+
   }
   return state
 }

@@ -19,9 +19,14 @@ class App extends Component {
           <Header />
           <Player />
           <div className="app-background" />
-          {/* exact 路径完全相等的时候才显示路由内的内容 */}
-          <Route exact path="/" component={Recommend} />
-          <Route path="/search" component={Search} />
+          <div className="play-container">
+            <div className="play-side">
+              {"菜单"}
+            </div>
+            {/* exact 路径完全相等的时候才显示路由内的内容 */}
+            <Route exact path="/" component={Recommend} />
+            <Route path="/search" component={Search} />
+          </div>
           <Title />
         </div>
       </Router>

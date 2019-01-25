@@ -5,3 +5,7 @@ export const PLAY_MODE_TYPES = {
   RANDOM_PLAY: 1,
   LOOP_PLAY: 2
 };
+export const PLAYING_STATUS = {
+  PAUSED: true,
+  PLAYING: false
+}

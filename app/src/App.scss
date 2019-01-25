@@ -43,6 +43,15 @@ body {
     background-color: rgba(37, 37, 37, 0.753);
   }
 }
+.play-container {
+  display: flex;
+  flex-direction: row;
+}
+.play-side {
+  margin-right: 10px;
+  width: 200px;
+  background-color: #fff;
+}
 
 .play-list-container {
   position: fixed;

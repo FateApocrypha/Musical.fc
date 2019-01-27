@@ -31,7 +31,13 @@ const defaultState = {
       id: null,
       name: 'Everyone Loves You When You Were Still A Kid'
     } 
-  }
+  },
+
+  // 播放列表
+  playList: [],
+
+  // 当前播放索引
+  currentIndex: 0,
 }
 
 export default (state = defaultState, action) => {
@@ -49,6 +55,11 @@ export default (state = defaultState, action) => {
     return newState
   }else if(action.type === types.CHANGE_CURRENT_MUSIC){
 
+  }else if(action.type === types.CHANGE_PLAY_LIST){
+    const newState = deepCopy(state)
+    newState.playList = action.value
+    // cacheLastUseInfo({ playList: action.value })
+    return newState
   }
   return state
 }

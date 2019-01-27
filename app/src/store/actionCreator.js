@@ -10,6 +10,15 @@ export const getChangeCurrentMusicListAction = (value) => {
   }
 }
 /**
+ * 切换当前播放列表
+ */
+export const getChangePlayListAction = (value) => {
+  return {
+    type: types.CHANGE_PLAY_LIST,
+    value
+  }
+}
+/**
  * 改变播放状态
  */
 export const getChangePlayingStatusAction = (status) => {

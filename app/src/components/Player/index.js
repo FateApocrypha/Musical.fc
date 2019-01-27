@@ -8,6 +8,7 @@ import { PLAY_MODE_TYPES } from '../../commons/js/config'
 import { findIndex, imageRatio, format } from '../../commons/js/utils.js'
 import { getChangePlayingStatusAction } from '../../store/actionCreator'
 import ProgressBar from '../ProgressBar'
+import PlayList from '../PlayList'
 import './index.scss'
 
 export const PLAYING_STATUS = {
@@ -15,7 +16,13 @@ export const PLAYING_STATUS = {
   PLAYING: false
 }
 class Player extends Component {
+  constructor(props){
+    super(props)
 
+    this.state = {
+      showPlayList: false
+    }
+  }
   componentWillReceiveProps ({ playing }) {
     if (!playing) {
       this.refs.audio.pause()
@@ -27,6 +34,20 @@ class Player extends Component {
   percentChangeEnd = () => {}
   handleUpdateTime = () => {}
   handlePlayNextMusic = () => {}
+  // 展示当前播放列表
+  handleShowPlayList = () => {
+    if(!this.state.showPlayList) {
+      document.addEventListener('click', this.handleShowPlayList)
+    } else {
+      document.removeEventListener('click', this.handleShowPlayList)
+    }
+    this.setState((prevState) => ({
+      showPlayList: !prevState.showPlayList
+    }), 
+    () => {
+      this.refs.playList.scrollToCurrentMusic()
+    })
+  }
   // 改变当前播放动态
   handleChangePlayingStatus = (status) => {
     if(this.props.playList && this.props.playList.length === 0){
@@ -40,7 +61,6 @@ class Player extends Component {
     } else {
       audio.pause()
     }
-
 
   }
   // 渲染播放控制器
@@ -87,7 +107,7 @@ class Player extends Component {
     return (
       <div className="right-control-btn">
         <i className="iconfont icon-list"
-          // onClick={this.handleShowPlayList}
+          onClick={this.handleShowPlayList}
         />
         <div className="change-play-mode">
           <i className={[
@@ -194,6 +214,13 @@ class Player extends Component {
               percentChangeEnd={this.volumeChange}
             />
           </div>
+        </div>
+        <div
+          className={`${
+            this.state.showPlayList ? '' : 'hide-play-list'
+          } play-list-container`}
+        >
+          <PlayList ref="playList" showPlayList={this.state.showPlayList}/>
         </div>
         <audio
           autoPlay

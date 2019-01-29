@@ -7,11 +7,9 @@ import {
   getAddToLikeListAction
 } from '../../store/actionCreator'
 import { findIndex } from '../../commons/js/utils'
-
+import './index.scss'
 class SongList extends Component {
-  defaultProps = {
-    showTitle: true
-  }
+  
 
   renderMusicList() {
     return this.props.list.map((item, index) => {
@@ -42,7 +40,7 @@ class SongList extends Component {
             </span>
           </div>
           <div className="control-btn">
-            <If condition={findIndex(this.props.likesList, item) < 0}>
+            {/* <If condition={findIndex(this.props.likesList, item) < 0}>
               <Then>
                 <span
                   className="like-music"
@@ -62,7 +60,7 @@ class SongList extends Component {
                   <i className="iconfont icon-love" title="不喜欢这首歌啦~" />
                 </span>
               </Else>
-            </If>
+            </If> */}
           </div>
         </li>
       );
@@ -94,7 +92,8 @@ class SongList extends Component {
 }
 const mapStateToProps = (state) => {
   return {
-    playList: state.playList
+    playList: state.playList,
+    likesList: state.collector ? state.collector.foundList[0].tracks : null
   }
 }
 
@@ -105,7 +104,9 @@ const mapDispatchToProps = (dispatch) => {
     },
   }
 }
-
+SongList.defaultProps = {
+  showTitle: true
+}
 export default connect(
   mapStateToProps,
   mapDispatchToProps

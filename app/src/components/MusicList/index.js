@@ -12,6 +12,7 @@ import {
   getToggleCollectPlaylist
 } from '../../store/actionCreator'
 import SongList from '../SongList'
+import './index.scss'
 class MusicList extends Component {
   constructor(props) {
     super(props)
@@ -71,6 +72,7 @@ const mapDispatchToProps = (dispatch) => {
   return {
     changeMusicList(value) {
       dispatch(getChangePlayListAction(value))
+      dispatch(getChangeCurrentIndex(-1))
     }
   }
 }

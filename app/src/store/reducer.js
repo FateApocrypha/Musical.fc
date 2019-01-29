@@ -36,6 +36,9 @@ const defaultState = {
   // 播放列表
   playList: [],
 
+  // 收藏
+  collector: null,
+
   // 当前播放索引
   currentIndex: 0,
 }
@@ -44,7 +47,6 @@ export default (state = defaultState, action) => {
   if(action.type === types.CHANGE_CURRENT_MUSIC_LIST){
     const newState = deepCopy(state)
     newState.musicList = action.value
-    console.log(action.value)
     if(action.value){
       newState.showMusicList = true
     }
@@ -54,7 +56,10 @@ export default (state = defaultState, action) => {
     newState.playing = action.status
     return newState
   }else if(action.type === types.CHANGE_CURRENT_MUSIC){
-
+    const newState = deepCopy(state);
+    newState.currentMusic = action.value
+    newState.playing = true
+    return newState
   }else if(action.type === types.CHANGE_PLAY_LIST){
     const newState = deepCopy(state)
     newState.playList = action.value

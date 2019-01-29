@@ -9,7 +9,7 @@ class Title extends Component {
 
   render() {
     return (
-      <div className="title" onDoubleClick = {() => currentWindow.minimize()}>
+      <div className="my-title" onDoubleClick = {() => currentWindow.minimize()}>
         <div className="title-btn-group">
         </div>
       </div>

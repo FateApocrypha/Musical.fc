@@ -29,7 +29,7 @@ class Header extends Component {
             className="icon"
             // onClick={this.props.handleHideMusicListAndSingerInfo}
           >
-            <i className="iconfont icon-here-music" />
+            {/* <i className="iconfont icon-here-music" /> */}
           </div>
         </NavLink>
         <nav>

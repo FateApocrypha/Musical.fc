@@ -47,12 +47,14 @@ export const changeCurrentMusicAction = (value) => ({
 // 获取歌单详情
 export const getMusicListDetailAction = (id) => {
   return dispatch => {
+    // dispatch(getChangeShowLoadingAction(true));
     getMusicListDetail(id)
     .then(({ data }) => {
        // 将歌单传入 redux 中的 musicList
       data.playlist.tracks = formatMusicListTracks(data.playlist.tracks);
       // 改变当前歌单列表
-      dispatch(getChangeCurrentMusicListAction(data.playlist));
+      console.log(data.playlist)
+      dispatch(getChangeCurrentMusicListAction(data.playlist))
     })
     .catch((err) => {
 
@@ -63,42 +65,51 @@ export const getMusicListDetailAction = (id) => {
 export const getChangeCurrentMusic = (value, loadCacheMusic = false) => {
   return (dispatch, getState) => {
     const state = getState()
-    console.log(state)
     const list = state.playList
-    let index = findIndex(list, value)
-    if(index === state.currentIndex && !loadCacheMusic){
-      return 
+    // 从歌曲列表中寻找当前歌曲的 index
+    const index = findIndex(list, value)
+    // 当点击的歌曲是正在播放的歌曲，直接返回
+    if (index === state.currentIndex && !loadCacheMusic) {
+      return
     }
-    if(index >= 0) {
-      // 找到当前列表里面的歌曲了，就直接改变当前播放的索引
+    if (index >= 0) {
+      // 如果 index >= 0 就直接修改 currentIndex
       dispatch(getChangeCurrentIndex(index))
     } else {
-      // 没有在列表里面找到歌曲, push该歌曲到列表最后去，改变当前的播放索引
+      // 如果没有这首歌
+      // 1. push 这首歌到 playList 中
+      // 2. 改变 index
       list.push(value)
-      dispatch(getChangeCurrentMusicListAction(list))
+      dispatch(getChangePlayListAction(list))
       dispatch(getChangeCurrentIndex(list.length - 1))
     }
-    // 改变当前歌曲信息
     dispatch(changeCurrentMusicAction(value))
-    getMusicUrl(value.id)
-    .then(({ data: { data } }) => {
-      if(!data[0].url){
-        // message.info('歌曲暂无版权，我帮你换首歌吧');
+    // dispatch(getCurrentMusicLyric())
+    getMusicUrl(value.id).then(({ data: { data } }) => {
+      if (!data[0].url) {
+        // message.info('歌曲暂无版权，我帮你换首歌吧')
         if (index !== list.length - 1) {
-          // dispatch(playNextMusicAction());
+          // dispatch(playNextMusicAction())
         }
-        return;
+        return
       }
-      value.musicUrl = data[0].url;
-      dispatch(changeCurrentMusicAction(value));
+      value.musicUrl = data[0].url
+      dispatch(changeCurrentMusicAction(value))
 
       // 因为是打开程序的时候加载上次关闭的时候播放的歌，但是不能播放，所以需要暂停
       if (loadCacheMusic) {
-        const STOP = false;
-        dispatch(getChangePlayingStatusAction(STOP));
+        const STOP = false
+        dispatch(getChangePlayingStatusAction(STOP))
+      }
+
+      // 搜索的歌曲会没有图片，所以去歌曲详情弄一张图片回来
+      if (!value.imgUrl) {
+        getMusicDetail(value.id).then(({data}) => {
+          value.imgUrl = data.songs[0].al.picUrl
+          dispatch(changeCurrentMusicAction(value))
+        })
       }
     })
-    .catch()
   }
 }
 function formatMusicListTracks (list) {

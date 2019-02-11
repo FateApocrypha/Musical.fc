@@ -46,6 +46,7 @@ const defaultState = {
 export default (state = defaultState, action) => {
   if(action.type === types.CHANGE_CURRENT_MUSIC_LIST){
     const newState = deepCopy(state)
+    console.log(action.value)
     newState.musicList = action.value
     if(action.value){
       newState.showMusicList = true

@@ -11,7 +11,7 @@ import './index.scss'
 class SongList extends Component {
   
 
-  renderMusicList() {
+  renderMusicList = () => {
     return this.props.list.map((item, index) => {
       let count = index + 1;
       if (count < 10) {

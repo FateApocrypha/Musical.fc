@@ -12,8 +12,8 @@ import PlayList from '../PlayList'
 import './index.scss'
 
 export const PLAYING_STATUS = {
-  PAUSED: true,
-  PLAYING: false
+  PAUSED: false,
+  PLAYING: true
 }
 class Player extends Component {
   constructor(props){
@@ -53,10 +53,9 @@ class Player extends Component {
     if(this.props.playList && this.props.playList.length === 0){
       return
     }
-    console.log(status)
     this.props.changePlayingStatus(status)
     const audio = this.refs.audio
-    if(status === PLAYING_STATUS.PAUSED){
+    if(status === PLAYING_STATUS.PLAYING){
       audio.play()
     } else {
       audio.pause()

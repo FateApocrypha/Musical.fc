@@ -42,6 +42,7 @@ class MusicList extends Component {
   }
   render() {
     const musicList = this.props.musicList
+    console.log(musicList)
     return (
       <div
         className={
@@ -61,6 +62,7 @@ class MusicList extends Component {
 }
 
 const mapStateToProps = (state) => {
+  console.log(state.musicList)
   return {
     musicList: state.musicList,
     showMusicList: state.showMusicList,

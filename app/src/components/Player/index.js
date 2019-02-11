@@ -11,6 +11,7 @@ import ProgressBar from '../ProgressBar'
 import PlayList from '../PlayList'
 import './index.scss'
 
+const DEFAULT_TIME = 0
 export const PLAYING_STATUS = {
   PAUSED: false,
   PLAYING: true
@@ -20,6 +21,10 @@ class Player extends Component {
     super(props)
 
     this.state = {
+      duration: DEFAULT_TIME,
+      currentTime: DEFAULT_TIME,
+      move: false,
+      percent: 0,
       showPlayList: false
     }
   }
@@ -30,10 +35,55 @@ class Player extends Component {
   }
   volumeChange = () => {}
   handleShowMusicDetial = () => {}
-  percentChange = () => {}
-  percentChangeEnd = () => {}
+  percentChange = (percent) => {
+    if (this.props.showMusicDetail) {
+      const currentTime = this.state.duration * percent;
+      this.refs.musicDetail.seek(currentTime);
+    }
+    this.setState(() => {
+      return {
+        percent,
+        move: true
+      }
+    })
+  }
+  percentChangeEnd = (percent) => {
+    const currentTime = this.state.duration * percent
+    this.refs.audio.currentTime = currentTime
+    if(this.props.showMusicDetail){
+      this.refs.musicDetail.seek(currentTime)
+    }
+    this.setState(() => {
+      return {
+        percent,
+        currentTime,
+        move: false
+      }
+    })
+  }
   handleUpdateTime = () => {}
-  handlePlayNextMusic = () => {}
+  handlePlayNextMusic = () => {
+
+  }
+  // 音乐播放触发 audio 标签的 updatetime 事件
+  // 这个时候获取 currentTime 得到音乐的时间
+  handleUpdateTime = (e) => {
+    if (this.state.move) {
+      return
+    }
+    const { currentTime, duration } = e.target
+    let percent = Math.floor((currentTime / duration) * 1000) / 1000
+    if (isNaN(percent)) {
+      percent = 0
+    }
+    this.setState(() => {
+      return {
+        currentTime,
+        percent,
+        duration
+      }
+    })
+  }
   // 展示当前播放列表
   handleShowPlayList = () => {
     if(!this.state.showPlayList) {
@@ -145,7 +195,6 @@ class Player extends Component {
   }
   render() {
     const { currentMusic } = this.props
-    console.log(currentMusic)
     return (
       <div className="player-container">
         <div className="player-left-container">
@@ -185,19 +234,19 @@ class Player extends Component {
           <div className="progress-bar-group">
             <div className="play-time">
               <span className="current-time">
-                {/* {format(this.props.currentTime)} */}
-                {'00:20'}
+                {format(this.state.currentTime)}
+                {/* {'00:20'} */}
               </span>
             </div>
             <div className="progress-bar-container">
               <ProgressBar
-                percent={0.5}
+                percent={this.state.percent}
                 percentChange={this.percentChange}
                 percentChangeEnd={this.percentChangeEnd}
               />
             </div>
             <div className="play-time">
-              <span className="duration">{"03:20"}</span>
+              <span className="duration">{format(this.state.duration)}</span>
             </div>
           </div>
         </div>

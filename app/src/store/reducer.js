@@ -13,6 +13,9 @@ const defaultState = {
   // 控制歌手详情的显示
   showSingerInfo: false,
 
+  // 控制歌曲详情的展示
+  showMusicDetail: false,
+
   // 歌手详情
   singerInfo: null,
 

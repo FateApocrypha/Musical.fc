@@ -129,12 +129,9 @@ const mapDispatchToProps = (dispatch) => {
   }
 }
 
-// export default withRouter(
-//   Recommend
-// );
 export default withRouter(
   connect(
     mapStateToProps,
     mapDispatchToProps
   )(Recommend)
-);
+)

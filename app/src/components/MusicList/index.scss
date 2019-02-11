@@ -1,0 +1,132 @@
+@import '../../commons/scss/variable.scss';
+
+.hide-music-list-container {
+  display: none;
+}
+
+.music-list-container {
+  position: fixed;
+  top: $header-height;
+  bottom: $player-height;
+  left: 0;
+  z-index: 1;
+  display: flex;
+  overflow-y: scroll;
+  box-sizing: border-box;
+  padding-left: 25px;
+  width: 100%;
+  color: $color-text;
+
+  .list-info {
+    position: fixed;
+    top: $header-height;
+    width: 200px;
+    height: 200px;
+    background: #fff;
+
+    .list-img {
+      overflow: hidden;
+      width: 200px;
+      height: 200px;
+      
+      img {
+        min-height: 200px;
+        width: 200px;
+      }
+    }
+
+    .control {
+      padding-top: 5px;
+      
+      i {
+        position: relative;
+        display: inline-block;
+        color: $color-text-gray;
+        font-size: 20px;
+        cursor: pointer;
+
+        &:hover {
+          color: $color-text;
+        }
+
+        &:hover:after {
+          position: absolute;
+          top: 25px;
+          font-size: $font-size-m;
+        }
+      }
+
+      .icon-play1 {
+        padding-right: 8px;
+
+        &:hover:after {
+          left: 0;
+          content: "播放";
+        }
+      }
+
+      .icon-addbox {
+        padding-right: 10px;
+
+        &:hover:after {
+          left: -30px;
+          width: 100px;
+          content: "添加到播放列表";
+        }
+      }
+
+      .icon-folder {
+        &:hover:after {
+          left: -30px;
+          width: 100px;
+          content: "添加到我的歌单";
+        }
+      }
+
+      .collected {
+        color: $color-theme;
+      }
+    }
+
+    .name {
+      margin-top: 10px;
+      margin-bottom: 12px;
+      font-weight: bold;
+      font-size: $font-size-xxl;
+      line-height: 24px;
+    }
+
+    .album-info {
+      margin-bottom: 12px;
+      color: $color-text-gray;
+
+      .artist {
+        margin-bottom: 5px;
+        font-size: $font-size-xl;
+      }
+      
+      .company {
+        font-size: $font-size-l;
+      }
+  
+      .publish-time {
+        margin-bottom: 5px;
+        font-size: $font-size-l;
+      }
+    }
+
+    .description {
+      position: relative;
+      width: 100%;
+      font-size: $font-size-m;
+      line-height: 22px;
+    }
+
+  }
+
+  .show-list-container {
+    position: absolute;
+    right: 20px;
+    left: 240px;
+  }
+}

@@ -22,7 +22,7 @@ body {
     z-index: -1;
     width: 130%;
     height: 130%;
-    background-image: linear-gradient(to right, #080e13 0%, #021524 100%);
+    background-color: #121212;
   }
 
   // 定义滚动条背景色
@@ -42,6 +42,15 @@ body {
     border-radius: 4px;
     background-color: rgba(37, 37, 37, 0.753);
   }
+}
+.play-container {
+  display: flex;
+  flex-direction: row;
+}
+.play-side {
+  margin-right: 10px;
+  width: 240px;
+  background-color: #fff;
 }
 
 .play-list-container {

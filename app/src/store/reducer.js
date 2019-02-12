@@ -1,9 +1,12 @@
 import * as types from './actionTypes'
-
+import { PLAY_MODE_TYPES } from '../commons/js/config'
 // 给一个初始的 state 树
 const defaultState = {
   // 播放状态
   playing: false,
+
+  // 当前播放模式
+  playMode: PLAY_MODE_TYPES.SEQUENCE_PLAY,
   // 当前展示的歌曲列表
   musicList: null,
 

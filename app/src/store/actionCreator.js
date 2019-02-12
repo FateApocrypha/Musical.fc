@@ -1,7 +1,8 @@
 
-import * as types from './actionTypes';
-import { getMusicUrl, getMusicLyric, getSingerInfo, getAlbumInfo, getMusicDetail, getMusicListDetail } from '../api';
-import { findIndex } from '../commons/js/utils';
+import * as types from './actionTypes'
+import { getMusicUrl, getMusicLyric, getSingerInfo, getAlbumInfo, getMusicDetail, getMusicListDetail } from '../api'
+import { findIndex } from '../commons/js/utils'
+import { PLAY_MODE_TYPES } from '../commons/js/config'
 
 
 export const getChangeCurrentMusicListAction = (value) => {
@@ -42,7 +43,49 @@ export const getChangeCurrentIndex = (index) => ({
 export const changeCurrentMusicAction = (value) => ({
   type: types.CHANGE_CURRENT_MUSIC,
   value
-});
+})
+
+export const playNextMusicAction = () => {
+  return (dispatch, getState) => {
+    const state = getState()
+    let {currentIndex, playList} = state
+    const length = playList.length
+    if(length === 0 || length === 1){
+      return
+    }
+    if(state.playMode === PLAY_MODE_TYPES.RANDOM_PLAY){
+      currentIndex = random(currentIndex, length)
+    } else if(currentIndex < length - 1){
+      currentIndex++
+    }else{
+      currentIndex = 0
+    }
+
+    dispatch(getChangeCurrentMusic(playList[currentIndex]))
+    dispatch(getChangeCurrentIndex(currentIndex))
+  }
+}
+
+export const playPrevMusicAction = () => {
+  return (dispatch, getState) => {
+    const state = getState()
+    let {currentIndex, playList} = state
+    const length = playList.length
+    if(length === 0 || length === 1){
+      return
+    }
+    if(state.playMode === PLAY_MODE_TYPES.RANDOM_PLAY){
+      currentIndex = random(currentIndex, length)
+    } else if(currentIndex > 0){
+      currentIndex--
+    }else{
+      currentIndex = length - 1
+    }
+
+    dispatch(getChangeCurrentMusic(playList[currentIndex]))
+    dispatch(getChangeCurrentIndex(currentIndex))
+  }
+}
 
 // 获取歌单详情
 export const getMusicListDetailAction = (id) => {
@@ -111,6 +154,14 @@ export const getChangeCurrentMusic = (value, loadCacheMusic = false) => {
       }
     })
   }
+}
+
+function random (index, length) {
+  const res = Math.floor(Math.random() * length)
+  if (res === index) {
+    return random(index, length)
+  }
+  return res
 }
 function formatMusicListTracks (list) {
   return list.map((item) => {

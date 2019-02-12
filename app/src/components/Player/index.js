@@ -6,7 +6,7 @@ import { connect } from 'react-redux'
 import { If, Then, Else } from 'react-if'
 import { PLAY_MODE_TYPES } from '../../commons/js/config'
 import { findIndex, imageRatio, format } from '../../commons/js/utils.js'
-import { getChangePlayingStatusAction } from '../../store/actionCreator'
+import { getChangePlayingStatusAction, playNextMusicAction, playPrevMusicAction } from '../../store/actionCreator'
 import ProgressBar from '../ProgressBar'
 import PlayList from '../PlayList'
 import './index.scss'
@@ -119,7 +119,7 @@ class Player extends Component {
         <div className="play-control-btn">
           <div className="prev-music">
             <i className="iconfont icon-prev"
-              // onClick={this.props.playPrevMusic}
+              onClick={this.props.playPrevMusic}
             />
           </div>
           <div className="play">
@@ -144,7 +144,7 @@ class Player extends Component {
           </div>
           <div className="next-music">
             <i className="iconfont icon-test"
-              // onClick={this.props.playNextMusic}
+              onClick={this.props.playNextMusic}
             />
           </div>
         </div>
@@ -294,6 +294,12 @@ const mapDispatchToProps = (dispatch) => {
   return {
     changePlayingStatus(status) {
       dispatch(getChangePlayingStatusAction(status))
+    },
+    playNextMusic() {
+      dispatch(playNextMusicAction())
+    },
+    playPrevMusic() {
+      dispatch(playPrevMusicAction())
     }
   }
 }

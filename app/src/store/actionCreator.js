@@ -29,6 +29,12 @@ export const getChangePlayingStatusAction = (status) => {
     status
   }
 }
+export const getChangePlayModeAction = (value) => {
+  return {
+    type: types.CHANGE_PLAY_MODE,
+    value
+  }
+}
 /**
  * 改变当前播放索引
  */

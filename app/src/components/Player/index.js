@@ -6,7 +6,7 @@ import { connect } from 'react-redux'
 import { If, Then, Else } from 'react-if'
 import { PLAY_MODE_TYPES } from '../../commons/js/config'
 import { findIndex, imageRatio, format } from '../../commons/js/utils.js'
-import { getChangePlayingStatusAction, playNextMusicAction, playPrevMusicAction } from '../../store/actionCreator'
+import { getChangePlayingStatusAction, playNextMusicAction, playPrevMusicAction, getChangePlayModeAction } from '../../store/actionCreator'
 import ProgressBar from '../ProgressBar'
 import PlayList from '../PlayList'
 import './index.scss'
@@ -161,13 +161,13 @@ class Player extends Component {
         <div className="change-play-mode">
           <i className={[
               'iconfont icon-next',
-              // this.props.playMode === PLAY_MODE_TYPES.SEQUENCE_PLAY
-              //   ? ''
-              //   : 'hide'
+              this.props.playMode === PLAY_MODE_TYPES.SEQUENCE_PLAY
+                ? ''
+                : 'hide'
             ].join(' ')}
-            // onClick={() =>
-            //   this.props.changePlayMode(PLAY_MODE_TYPES.RANDOM_PLAY)
-            // }
+            onClick={() =>
+              this.props.changePlayMode(PLAY_MODE_TYPES.RANDOM_PLAY)
+            }
           />
           <i className={[
               'iconfont icon-loop',
@@ -175,9 +175,9 @@ class Player extends Component {
                 ? ''
                 : 'hide'
             ].join(' ')}
-            // onClick={() =>
-            //   this.props.changePlayMode(PLAY_MODE_TYPES.SEQUENCE_PLAY)
-            // }
+            onClick={() =>
+              this.props.changePlayMode(PLAY_MODE_TYPES.SEQUENCE_PLAY)
+            }
           />
           <i className={[
               'iconfont icon-random',
@@ -185,9 +185,9 @@ class Player extends Component {
                 ? ''
                 : 'hide'
             ].join(' ')}
-            // onClick={() =>
-            //   this.props.changePlayMode(PLAY_MODE_TYPES.LOOP_PLAY)
-            // }
+            onClick={() =>
+              this.props.changePlayMode(PLAY_MODE_TYPES.LOOP_PLAY)
+            }
           />
         </div>
       </div>
@@ -286,7 +286,8 @@ const mapStateToProps = (state) => {
   return {
     playing: state.playing,
     currentMusic: state.currentMusic,
-    playList: state.playList
+    playList: state.playList,
+    playMode: state.playMode
   }
 }
 
@@ -300,6 +301,9 @@ const mapDispatchToProps = (dispatch) => {
     },
     playPrevMusic() {
       dispatch(playPrevMusicAction())
+    },
+    changePlayMode(value) {
+      dispatch(getChangePlayModeAction(value))
     }
   }
 }

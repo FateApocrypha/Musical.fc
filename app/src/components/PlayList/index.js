@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { If, Then, Else } from 'react-if'
 import './index.scss'
+import { getChangeCurrentMusic, getDeleteMusicAction } from '../../store/actionCreator';
 class PlayList extends Component {
 
   scrollToCurrentMusic = () => {
@@ -15,7 +16,14 @@ class PlayList extends Component {
     return this.props.playList.map((item, index) => {
       return (
         <li className="" key={item.id}>
-
+          <div className="music-name">
+            <span onClick={() => this.props.handleChangeCurrentMusic(item)}>
+              {item.musicName}
+            </span>
+          </div>
+          <div className="singer-name">
+          </div>
+          <i className="iconfont icon-del" onClick={() => this.handleDeleteMusic(item)}/>
         </li>
       )
     })
@@ -52,7 +60,14 @@ const mapStateToProps = (state) => {
 }
 const mapDispatchToProps = (dispatch) => {
   return {
-
+    handleChangeCurrentMusic(item){
+      const action = getChangeCurrentMusic(item)
+      dispatch(action)
+    },
+    handleDeleteMusic(item) {
+      const action = getDeleteMusicAction(item)
+      dispatch(action)
+    }
   }
 }
 

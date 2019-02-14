@@ -50,7 +50,13 @@ export const changeCurrentMusicAction = (value) => ({
   type: types.CHANGE_CURRENT_MUSIC,
   value
 })
-
+/**
+ * 删除当前播放音乐
+ */
+export const getDeleteMusicAction = (value) => ({
+  type: types.DELETE_MUSIC,
+  value
+})
 export const playNextMusicAction = () => {
   return (dispatch, getState) => {
     const state = getState()
